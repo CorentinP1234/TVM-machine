@@ -20,36 +20,41 @@ public class TVM {
     PaymentTerminal paymentTerminal = new PaymentTerminal();
 
     TVM() {
-        System.out.println("Welcome to RATP TVM");
+        System.out.println("Welcome to RATP TVM\n");
 
         this.initialMoney();
     }
 
-    public void ticketSelection() {
+    public double ticketSelection() {
         System.out.println("Wich ticket do you want ?");
-        System.out.println("1. Day Ticket");
-        System.out.println("2. Week Ticket");
-        System.out.println("3. Ticket +");
-        System.out.println("4. Single Travel Ticket");
+        System.out.printf("1. Day Ticket (%s euros)\n", DayTicket.price);
+        System.out.printf("2. Week Ticket (%s euros)\n", WeekTicket.price);
+        System.out.printf("3. Ticket+ (%s euros)\n", TicketPlus.price);
+        System.out.printf("4. Single Travel Ticket (%s euros)\n", SingleTravelTicket.price);
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
         String strTicket;
         String str = "You choose ";
+        double price;
         switch (selection) {
             case 1:
+                price = DayTicket.price;
                 strTicket = "Day Ticket";
                 System.out.println(str + strTicket);
                 break;
             case 2:
+                price = WeekTicket.price;
                 strTicket = "Week Ticket";
                 System.out.println(str + strTicket);
                 break;
             case 3:
+                price = TicketPlus.price;
                 strTicket = "Ticket +";
                 System.out.println(str + strTicket);
                 break;
             case 4:
+                price = SingleTravelTicket.price;
                 strTicket = "Single Travel Ticket";
                 System.out.println(str + strTicket);
                 System.out.println("Select destination");
@@ -58,15 +63,17 @@ public class TVM {
 
             default:
                 System.out.println("Wrong Selection");
-                this.ticketSelection();
-                return;
+                return this.ticketSelection();
         }
-        System.out.println("How many ticket do you want");
-        scanner.next();
+        System.out.println("\nHow many ticket do you want");
+        int numTicket = scanner.nextInt();
+        double amountDue = price * numTicket;
+        System.out.printf("Total: %.2f euros\n", amountDue);
         System.out.println("Confirm ? [y/n]");
         String confimation = scanner.next();
         if (confimation == "n")
-        this.ticketSelection();
+            this.ticketSelection();
+        return amountDue;
     }
 
     public void initialMoney() {

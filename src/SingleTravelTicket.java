@@ -1,6 +1,7 @@
 import java.util.Date;
 
 public class SingleTravelTicket extends Ticket{
+    static double price = 3;
     String departureStation;
     String arrivalStation;
 

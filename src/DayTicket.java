@@ -1,6 +1,3 @@
 public class DayTicket extends Ticket {
-    DayTicket() {
-        super();
-        super.price = 1.9;
-    }
+    static double price = 2.89;
 }
