@@ -1,2 +1,9 @@
-public class Ticket {
+import java.util.Date;
+
+abstract public class Ticket {
+ int id;
+ Date expirationDate;
+ double price;
+
+
 }
