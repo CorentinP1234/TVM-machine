@@ -91,7 +91,7 @@ public class TVM {
         two_euros_coin = 100;
         five_euros_banknote = 100;
         ten_euros_banknote = 100;
-        twenty_euros_banknote = 1;
+        twenty_euros_banknote = 100;
     }
 
     public void choosePaymentMethod(double amountDue) {
@@ -126,225 +126,162 @@ public class TVM {
         do {
             System.out.println(amountDue+" due");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("1. 0.01€");
-            System.out.println("2. 0.02€");
-            System.out.println("3. 0.05€");
-            System.out.println("4. 0.10€");
-            System.out.println("5. 0.20€");
-            System.out.println("6. 0.50€");
-            System.out.println("7. 1.00€");
-            System.out.println("8. 2.00€");
-            System.out.println("9. 5.00€");
-            System.out.println("10. 10.00€");
-            System.out.println("11. 20.00€");
-            int moneySelection = scanner.nextInt();
-            switch (moneySelection) {
-                case 1:
-                    if(youHaveTheMoney(0.01)){
-                        System.out.println("You entered 0.01€");
-                        amountDue = difference(amountDue, 0.01);
-                        this.one_cent_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 2:
-                    if(youHaveTheMoney(0.02)){
-                        System.out.println("You entered 0.02€");
-                        amountDue = difference(amountDue, 0.02);
-                        this.two_cents_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 3:
-                    if(youHaveTheMoney(0.05)){
-                        System.out.println("You entered 0.05€");
-                        amountDue = difference(amountDue, 0.05);
-                        this.five_cents_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 4:
-                    if(youHaveTheMoney(0.10)){
-                        System.out.println("You entered 0.10€");
-                        amountDue = difference(amountDue, 0.10);
-                        this.ten_cents_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 5:
-                    if(youHaveTheMoney(0.20)){
-                        System.out.println("You entered 0.20€");
-                        amountDue = difference(amountDue, 0.20);
-                        this.twenty_cents_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 6:
-                    if(youHaveTheMoney(0.50)){
-                        System.out.println("You entered 0.50€");
-                        amountDue = difference(amountDue, 0.50);
-                        this.fifty_cents_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 7:
-                    if(youHaveTheMoney(1.00)){
-                        System.out.println("You entered 1.00€");
-                        amountDue = difference(amountDue, 1.00);
-                        this.one_euro_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 8:
-                    if(youHaveTheMoney(2.00)){
-                        System.out.println("You entered 2.00€");
-                        amountDue = difference(amountDue, 2.00);
-                        this.two_euros_coin--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 9:
-                    if(youHaveTheMoney(5.00)){
-                        System.out.println("You entered 5.00€");
-                        amountDue = difference(amountDue, 5.00);
-                        this.five_euros_banknote--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 10:
-                    if(youHaveTheMoney(10.00)){
-                        System.out.println("You entered 10.00€");
-                        amountDue = difference(amountDue, 10.00);
-                        this.ten_euros_banknote--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                case 11:
-                    if(youHaveTheMoney(20.00)){
-                        System.out.println("You entered 20.00€");
-                        amountDue = difference(amountDue, 20.00);
-                        this.twenty_euros_banknote--;
-                    } else {
-                        System.out.println("Waiting for you to enter something...");
-                    }
-                    break;
-                default:
-                    System.out.println("Wrong Selection");
-                    break;
+            System.out.println("Please, enter cash.");
+            double moneyEntered = scanner.nextDouble();
+            if(amountAccepted(moneyEntered)){
+                amountDue = difference(amountDue, moneyEntered);
             }
         } while (amountDue>=0.01);
         System.out.println("Printing Tickets...");
     }
 
-    public boolean youHaveTheMoney(double amount){
-        if(amount==0.01){
-            return this.one_cent_coin>0;
+    public boolean amountAccepted(double amount){
+        double[] moneyAccepted = {0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00};
+        for (double money : moneyAccepted) {
+            if (amount == money) {
+                System.out.println("You've entered "+amount);
+                return true;
+            }
         }
-        if(amount==0.02){
-            return this.two_cents_coin>0;
-        }
-        if(amount==0.05){
-            return this.five_cents_coin>0;
-        }
-        if(amount==0.10){
-            return this.ten_cents_coin>0;
-        }
-        if(amount==0.20){
-            return this.twenty_cents_coin>0;
-        }
-        if(amount==0.50){
-            return this.fifty_cents_coin>0;
-        }
-        if(amount==1.00){
-            return this.one_euro_coin>0;
-        }
-        if(amount==2.00){
-            return this.two_euros_coin>0;
-        }
-        if(amount==5.00){
-            return this.five_euros_banknote>0;
-        }
-        if(amount==10.00){
-            return this.ten_euros_banknote>0;
-        }
-        if(amount==20.00){
-            return this.twenty_euros_banknote > 0;
-        }
-        return(false);
+        System.out.println("Invalid. Please, enter a valid banknote or coin.");
+        return false;
     }
 
     public double difference(double amountDue, double given){
-        double difference = Double.parseDouble(dfZero.format(amountDue-given));
+        double difference = Double.parseDouble(dfZero.format(amountDue-given)); //To keep 2 decimal places
         if(difference<0) {
             giveBackChange(Math.abs(difference));
-            System.out.println("In total, "+Math.abs(difference)+" given back.");
+            System.out.println("In total, "+Math.abs(difference)+"€ given back.");
             return 0;
+        }
+        if(given == 20.00){
+            this.twenty_euros_banknote++;
+        }
+        else if(given == 10.00){
+            this.ten_euros_banknote++;
+        }
+        else if(given == 5.00){
+            this.five_euros_banknote++;
+        }
+        else if(given == 2.00){
+            this.two_euros_coin++;
+        }
+        else if(given == 1.00){
+            this.one_euro_coin++;
+        }
+        else if(given == 0.50){
+            this.fifty_cents_coin++;
+        }
+        else if(given == 0.20){
+            this.twenty_cents_coin++;
+        }
+        else if(given == 0.10){
+            this.ten_cents_coin++;
+        }
+        else if(given == 0.05){
+            this.five_cents_coin++;
+        }
+        else if(given == 0.02){
+            this.two_cents_coin++;
+        }
+        else if(given == 0.01){
+            this.one_cent_coin++;
         }
         return difference;
     }
 
+    public boolean checkMoneyChange(double money){
+        if(money == 10.00){
+            return this.ten_euros_banknote>0;
+        }
+        if(money == 5.00){
+            return this.five_euros_banknote>0;
+        }
+        if(money == 2.00){
+            return this.two_euros_coin>0;
+        }
+        if(money == 1.00){
+            return this.one_euro_coin>0;
+        }
+        if(money == 0.50){
+            return this.fifty_cents_coin>0;
+        }
+        if(money == 0.20){
+            return this.twenty_cents_coin>0;
+        }
+        if(money == 0.10){
+            return this.ten_cents_coin>0;
+        }
+        if(money == 0.05){
+            return this.five_cents_coin>0;
+        }
+        if(money == 0.02){
+            return this.two_cents_coin>0;
+        }
+        if(money == 0.01){
+            return this.one_cent_coin>0;
+        }
+        return false;
+    }
+
     public void giveBackChange(double amount){
+        boolean noMoreChange = false;
         do {
-            if(amount>10){
+            if(amount>10 && checkMoneyChange(10.00)){
                 amount -= 10.00;
-                this.ten_euros_banknote++;
+                this.ten_euros_banknote--;
                 System.out.println("10.00€ banknote given back.");
             }
-            else if (amount>5){
+            else if (amount>5 && checkMoneyChange(5.00)){
                 amount -= 5.00;
-                this.five_euros_banknote++;
+                this.five_euros_banknote--;
                 System.out.println("5.00€ banknote given back.");
             }
-            else if (amount>2){
+            else if (amount>2 && checkMoneyChange(2.00)){
                 amount -= 2.00;
-                this.two_euros_coin++;
+                this.two_euros_coin--;
                 System.out.println("2.00€ coin given back.");
             }
-            else if (amount>1){
+            else if (amount>1 && checkMoneyChange(1.00)){
                 amount -= 1.00;
-                this.one_euro_coin++;
+                this.one_euro_coin--;
                 System.out.println("1.00€ coin given back.");
             }
-            else if (amount>0.5){
+            else if (amount>0.5 && checkMoneyChange(0.50)){
                 amount -= 0.50;
-                this.fifty_cents_coin++;
+                this.fifty_cents_coin--;
                 System.out.println("0.50€ coin given back.");
             }
-            else if (amount>0.2){
+            else if (amount>0.2 && checkMoneyChange(0.20)){
                 amount -= 0.20;
-                this.twenty_cents_coin++;
+                this.twenty_cents_coin--;
                 System.out.println("0.20€ coin given back.");
             }
-            else if (amount>0.1){
+            else if (amount>0.1 && checkMoneyChange(0.10)){
                 amount -= 0.10;
-                this.ten_cents_coin++;
+                this.ten_cents_coin--;
                 System.out.println("0.10€  coin given back.");
             }
-            else if (amount>0.05){
+            else if (amount>0.05 && checkMoneyChange(0.05)){
                 amount -= 0.05;
-                this.five_cents_coin++;
+                this.five_cents_coin--;
                 System.out.println("0.05€ coin given back.");
             }
-            else if (amount>0.02){
+            else if (amount>0.02 && checkMoneyChange(0.02)){
                 amount -= 0.02;
-                this.twenty_cents_coin++;
+                this.twenty_cents_coin--;
                 System.out.println("0.02€ coin given back.");
             }
-            else if (amount>0.01){
+            else if (amount>0.01 && checkMoneyChange(0.01)){
                 amount -= 0.01;
-                this.one_cent_coin++;
+                this.one_cent_coin--;
                 System.out.println("0.01€ coin given back.");
             }
-        } while(amount>=0.01);
+            else {
+                System.out.println("Sorry no more change, please go to the reception desk and claim the rest of your money change. ");
+                System.out.println("You're due "+amount);
+                noMoreChange = true;
+            }
+        } while(amount>=0.01 || noMoreChange);
     }
 }
