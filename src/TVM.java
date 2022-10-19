@@ -1,4 +1,6 @@
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TVM {
@@ -36,8 +38,12 @@ public class TVM {
         System.out.printf("4. Single Travel Ticket (%s euros)\n", SingleTravelTicket.price);
 
         Scanner scanner = new Scanner(System.in);
-
-        int selection = scanner.nextInt();
+        int selection = 0;
+        try {
+            selection = scanner.nextInt();
+        } catch (InputMismatchException ime) {
+            System.out.println("Please, select a ticket. ");
+        }
         String strTicket;
         String str = "You choose ";
         double price;
@@ -69,13 +75,24 @@ public class TVM {
                 System.out.println("Wrong Selection");
                 return this.ticketSelection();
         }
-        System.out.println("\nHow many ticket do you want");
-        int numTicket = scanner.nextInt();
+        System.out.println("\nHow many ticket do you want?");
+        boolean done = false;
+        int numTicket = 0;
+        do {
+            try {
+                String capture = scanner.next();
+                if(Integer.parseInt(capture)>0){
+                    numTicket = Integer.parseInt(capture);
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter a valid number.");
+            }
+        } while (numTicket<=0);
         double amountDue = Double.parseDouble(dfZero.format(price * numTicket)); //To make double round up to 2 decimal places
         System.out.printf("Total: %.2f euros\n", amountDue);
         System.out.println("Confirm ? [y/n]");
         String confirmation = scanner.next();
-        if (confirmation == "n")
+        if (confirmation == "n" || confirmation == "N")
             this.ticketSelection();
         return amountDue;
     }
@@ -95,12 +112,16 @@ public class TVM {
     }
 
     public void choosePaymentMethod(double amountDue) {
-        System.out.println("How do u want to pay ?");
+        System.out.println("How do you want to pay ?");
         System.out.println("1. Pay in Cash");
         System.out.println("2. Pay by Card");
         Scanner scanner = new Scanner(System.in);
-        int paymentMethod = scanner.nextInt();
-
+        int paymentMethod = 0;
+        try {
+            paymentMethod = scanner.nextInt();
+        } catch (InputMismatchException ime) {
+            System.out.println("1 to pay in CASH ; 2 to pay by CARD.");
+        }
         switch (paymentMethod) {
             case 1:
                 // Cash
@@ -125,7 +146,15 @@ public class TVM {
             System.out.println(amountDue+" due");
             Scanner scanner = new Scanner(System.in);
             System.out.println("Please, enter cash.");
-            double moneyEntered = scanner.nextDouble();
+            double moneyEntered = 0;
+            try {
+                String capture = scanner.next();
+                if(Double.parseDouble(capture)>0){
+                    moneyEntered = Double.parseDouble(capture);
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter a valid number.");
+            }
             if(amountAccepted(moneyEntered)){
                 amountDue = difference(amountDue, moneyEntered);
             }
