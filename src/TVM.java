@@ -117,9 +117,7 @@ public class TVM {
     }
 
     public void payByCard(double amountDue) {
-        this.paymentTerminal.sendInfo();
-        System.out.println("Payment Validated");
-        System.out.println("Printing Tickets...");
+        this.paymentTerminal.sendInfo(amountDue);
     }
 
     public void payInCash(double amountDue) {
@@ -227,53 +225,53 @@ public class TVM {
     public void giveBackChange(double amount){
         boolean noMoreChange = false;
         do {
-            if(amount>10 && checkMoneyChange(10.00)){
-                amount -= 10.00;
+            if(amount>=10 && checkMoneyChange(10.00)){
+                amount = Double.parseDouble(dfZero.format(amount-10.00));
                 this.ten_euros_banknote--;
                 System.out.println("10.00€ banknote given back.");
             }
-            else if (amount>5 && checkMoneyChange(5.00)){
-                amount -= 5.00;
+            else if (amount>=5 && checkMoneyChange(5.00)){
+                amount = Double.parseDouble(dfZero.format(amount-5.00));
                 this.five_euros_banknote--;
                 System.out.println("5.00€ banknote given back.");
             }
-            else if (amount>2 && checkMoneyChange(2.00)){
-                amount -= 2.00;
+            else if (amount>=2 && checkMoneyChange(2.00)){
+                amount = Double.parseDouble(dfZero.format(amount-2.00));
                 this.two_euros_coin--;
                 System.out.println("2.00€ coin given back.");
             }
-            else if (amount>1 && checkMoneyChange(1.00)){
-                amount -= 1.00;
+            else if (amount>=1 && checkMoneyChange(1.00)){
+                amount = Double.parseDouble(dfZero.format(amount-1.00));
                 this.one_euro_coin--;
                 System.out.println("1.00€ coin given back.");
             }
-            else if (amount>0.5 && checkMoneyChange(0.50)){
-                amount -= 0.50;
+            else if (amount>=0.5 && checkMoneyChange(0.50)){
+                amount = Double.parseDouble(dfZero.format(amount-0.50));
                 this.fifty_cents_coin--;
                 System.out.println("0.50€ coin given back.");
             }
-            else if (amount>0.2 && checkMoneyChange(0.20)){
-                amount -= 0.20;
+            else if (amount>=0.2 && checkMoneyChange(0.20)){
+                amount = Double.parseDouble(dfZero.format(amount-0.20));
                 this.twenty_cents_coin--;
                 System.out.println("0.20€ coin given back.");
             }
-            else if (amount>0.1 && checkMoneyChange(0.10)){
-                amount -= 0.10;
+            else if (amount>=0.1 && checkMoneyChange(0.10)){
+                amount = Double.parseDouble(dfZero.format(amount-0.10));
                 this.ten_cents_coin--;
                 System.out.println("0.10€  coin given back.");
             }
-            else if (amount>0.05 && checkMoneyChange(0.05)){
-                amount -= 0.05;
+            else if (amount>=0.05 && checkMoneyChange(0.05)){
+                amount = Double.parseDouble(dfZero.format(amount-0.05));
                 this.five_cents_coin--;
                 System.out.println("0.05€ coin given back.");
             }
-            else if (amount>0.02 && checkMoneyChange(0.02)){
-                amount -= 0.02;
+            else if (amount>=0.02 && checkMoneyChange(0.02)){
+                amount = Double.parseDouble(dfZero.format(amount-0.02));
                 this.twenty_cents_coin--;
                 System.out.println("0.02€ coin given back.");
             }
-            else if (amount>0.01 && checkMoneyChange(0.01)){
-                amount -= 0.01;
+            else if (amount>=0.01 && checkMoneyChange(0.01)){
+                amount = Double.parseDouble(dfZero.format(amount-0.01));
                 this.one_cent_coin--;
                 System.out.println("0.01€ coin given back.");
             }
